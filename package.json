@@ -1,0 +1,26 @@
+{
+  "name": "tweteroo-back",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gisele-silva/tweteroo-back.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gisele-silva/tweteroo-back/issues"
+  },
+  "homepage": "https://github.com/gisele-silva/tweteroo-back#readme",
+  "dependencies": {
+    "expres": "^0.0.5",
+    "express": "^4.18.2",
+    "nodemon": "^2.0.22"
+  }
+}
