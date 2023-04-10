@@ -12,14 +12,14 @@ const newUsers = []
 const newTweet = [];
 
 app.get("/tweets", (req, res) => {
-    const { username } = req.body;
+ 
     const novoArray = newTweet.map((tweet) =>{
-        const user = newUsers.find((usuario) => usuario.username === username);
+        const user = newUsers.find((usuario) => usuario.username === tweet.username);
         const imagem = user.avatar;
         return {...tweet, avatar: imagem}
     })
 
-    res.send(novoArray.slice(-10))
+    res.send(novoArray.slice(-10).reverse())
 })
 
 app.post("/tweets", (req, res) => {
@@ -36,6 +36,11 @@ app.post("/tweets", (req, res) => {
         return;
     }
 
+    if (typeof tweet!== "string"){
+        res.sendStatus(400)
+        return
+    }
+
     newTweet.push({username, tweet});
     res.status(201).send("OK")
 })
@@ -47,6 +52,11 @@ app.post("/sign-up", (req, res) => {
         return
     }
 
+    if (typeof username !== "string" || typeof avatar !== "string"){
+        res.sendStatus(400)
+        return
+    }
+
     const userExist = newUsers.find((usuario) => usuario.username === username)
     if (userExist) {
         res.sendStatus(400)
@@ -54,7 +64,7 @@ app.post("/sign-up", (req, res) => {
     }
 
     newUsers.push({username, avatar})
-    res.send("ok")
+    res.status(201).send("ok")
 })
 
 app.get('tweets/:username', (req, res) => {
