@@ -23,15 +23,16 @@ app.get("/tweets", (req, res) => {
 })
 
 app.post("/tweets", (req, res) => {
-    const { username, tweet} = req.body;
-    const user = newUsers.find((usuario) => usuario.username === username);
+    const {tweet} = req.body;
+    const { user: username } = req.headers;
+    const usuario = newUsers.find((usuario) => usuario.username === username);
     
     if (!username || !tweet){
         res.status(400).send("Todos os campos são obrigatórios")
         return
     }
 
-    if(!user){
+    if(!usuario){
         res.send("UNAUTHORIZED")
         return;
     }
