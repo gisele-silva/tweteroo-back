@@ -9,13 +9,28 @@ const PORT = 5000;
 app.listen(PORT, () => {console.log(`Servidor rodando na porta ${PORT}`)})
 
 const newUsers = []
+const newTweet = []
 
 app.get("/tweets", (req, res) => {
     
 })
 
 app.post("/tweets", (req, res) => {
+    const { username, tweet} = req.body;
+    const user = newUsers.find((usuario) => usuario.username === username);
+    
+    if (!username, !tweet){
+        res.status(400).send("Todos os campos são obrigatórios")
+        return
+    }
 
+    if(!user){
+        res.send("UNAUTHORIZED")
+        return;
+    }
+
+    newTweet.push({username, tweet});
+    res.status(201).send("OK")
 })
 
 app.post("/sign-up", (req, res) => {
