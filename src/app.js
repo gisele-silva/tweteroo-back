@@ -12,14 +12,13 @@ const newUsers = []
 const newTweet = [];
 
 app.get("/tweets", (req, res) => {
-    const { avatar } = newUsers.find(user => user.username === username);
-    lastTweet = newTweet.length;
-    firstTweet = lastTweet - 10;
-    const dezTweets = []
-    for (let i = lastTweet; i >= firstTweet; i--){
-        dezTweets.push(newTweet[i])
-    }
-    res.send(dezTweets)
+    const novoArray = newTweet.map((tweet) =>{
+        const user = newUsers.find((usuario) => usuario.username === username);
+        const imagem = user.avatar;
+        return {...tweet, avatar: imagem}
+    })
+
+    res.send(novoArray.slice(-10))
 })
 
 app.post("/tweets", (req, res) => {
