@@ -9,10 +9,17 @@ const PORT = 5000;
 app.listen(PORT, () => {console.log(`Servidor rodando na porta ${PORT}`)})
 
 const newUsers = []
-const newTweet = []
+const newTweet = [];
 
 app.get("/tweets", (req, res) => {
-    
+    const { avatar } = newUsers.find(user => user.username === username);
+    lastTweet = newTweet.length;
+    firstTweet = lastTweet - 10;
+    const dezTweets = []
+    for (let i = lastTweet; i >= firstTweet; i--){
+        dezTweets.push(newTweet[i])
+    }
+    res.send(dezTweets)
 })
 
 app.post("/tweets", (req, res) => {
