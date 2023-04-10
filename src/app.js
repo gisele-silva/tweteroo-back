@@ -48,3 +48,9 @@ app.post("/sign-up", (req, res) => {
     newUsers.push({username, avatar})
     res.send("ok")
 })
+
+app.get('tweets/:username', (req, res) => {
+    const { username } = req.params
+    const tweetsUser = tweets.filter(t => t.username === username)
+    res.status(200).send(tweetsUser)
+})
