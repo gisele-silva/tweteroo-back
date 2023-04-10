@@ -12,6 +12,7 @@ const newUsers = []
 const newTweet = [];
 
 app.get("/tweets", (req, res) => {
+    const { username } = req.body;
     const novoArray = newTweet.map((tweet) =>{
         const user = newUsers.find((usuario) => usuario.username === username);
         const imagem = user.avatar;
@@ -25,7 +26,7 @@ app.post("/tweets", (req, res) => {
     const { username, tweet} = req.body;
     const user = newUsers.find((usuario) => usuario.username === username);
     
-    if (!username, !tweet){
+    if (!username || !tweet){
         res.status(400).send("Todos os campos são obrigatórios")
         return
     }
@@ -41,10 +42,17 @@ app.post("/tweets", (req, res) => {
 
 app.post("/sign-up", (req, res) => {
     const { username, avatar } = req.body;
-    if (!username, !avatar){
+    if (!username || !avatar){
         res.status(400).send("Todos os campos são obrigatórios")
         return
     }
+
+    const userExist = newUsers.find((usuario) => usuario.username === username)
+    if (userExist) {
+        res.sendStatus(400)
+        return
+    }
+
     newUsers.push({username, avatar})
     res.send("ok")
 })
